@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "865933755171",
+    "project_id": "mydigimind-ca29c",
+    "storage_bucket": "mydigimind-ca29c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:865933755171:android:ee64ad9a2a5a77c2750296",
+        "android_client_info": {
+          "package_name": "daniel.ornelas.digimind"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "865933755171-s4ljl1tqjms35p3ugdtku6q992pu0bd4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJsffCwWftVme54tWpAWTOBh4VvyMfa8I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "865933755171-s4ljl1tqjms35p3ugdtku6q992pu0bd4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

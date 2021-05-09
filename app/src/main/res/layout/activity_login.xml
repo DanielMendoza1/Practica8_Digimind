@@ -6,8 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-
     tools:context=".LoginActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logobrain"/>
 
     <LinearLayout
         android:orientation="vertical"
@@ -38,12 +42,14 @@
                 android:text="Registrarse"
                 android:layout_width="wrap_content"
                 android:layout_marginRight="5dp"
+                android:backgroundTint="@color/colorAccent"
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_registrarse"
                 android:layout_weight="1"/>
             <Button
                 android:text="Ingresar"
                 android:layout_marginLeft="5dp"
+                android:backgroundTint="@color/colorAccent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/btn_ingresar" android:layout_weight="1"/>
         </LinearLayout>
