@@ -56,7 +56,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
     }
-    
+
     private fun ingresaFirebase(email: String, password: String){
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->

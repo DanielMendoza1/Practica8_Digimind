@@ -7,17 +7,21 @@ import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 
 class RegistroActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var storage: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registro)
 
         auth = Firebase.auth
+        storage = FirebaseFirestore.getInstance()
+
 
         val btn_registrar: Button = findViewById(R.id.btn_registrar)
 
@@ -61,8 +65,23 @@ class RegistroActivity : AppCompatActivity() {
                     //Log.d(TAG, "createUserWithEmail:success")
                     val user = auth.currentUser
 
-                    Toast.makeText(baseContext, "${user.email} El usaurio se ha creado correctamente.",
-                        Toast.LENGTH_SHORT).show()
+                    val usuario = hashMapOf(
+                        "clave" to user.uid,
+                        "email" to user.email
+                    )
+
+                    storage.collection("usuarios")
+                        .add(usuario)
+                        .addOnSuccessListener {
+                            Toast.makeText(baseContext, "${user.email} El usaurio se ha creado correctamente.",
+                                Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(baseContext, "Error al agregar el usuario.",
+                                Toast.LENGTH_SHORT).show()
+                        }
+
+
                     //updateUI(user)
                 } else {
                     // If sign in fails, display a message to the user.
