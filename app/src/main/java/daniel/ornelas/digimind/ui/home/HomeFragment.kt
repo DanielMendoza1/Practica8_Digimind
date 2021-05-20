@@ -22,12 +22,11 @@ import daniel.ornelas.digimind.ui.Task
 
 class HomeFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
-    private var adaptador: AdaptadorTareas? = null
-
     private lateinit var storage: FirebaseFirestore
     private lateinit var usuario: FirebaseAuth
 
+    private var adaptador: AdaptadorTareas? = null
+    private lateinit var homeViewModel: HomeViewModel
 
     companion object {
         var tasks = ArrayList<Task>()
@@ -44,19 +43,20 @@ class HomeFragment : Fragment() {
                 ViewModelProvider(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
 
-        tasks = ArrayList()
+       // tasks = ArrayList()
+        var gridView: GridView = root.findViewById(R.id.gridView)
         storage = FirebaseFirestore.getInstance()
         usuario = FirebaseAuth.getInstance()
 
 
-        fillTask()
 
-        if (!tasks.isEmpty()){
-            var gridView: GridView = root.findViewById(R.id.gridView)
-
-            adaptador = AdaptadorTareas(root.context, tasks)
-            gridView.adapter = adaptador
+        if (first){
+          fillTask()
+            first = false
         }
+
+        adaptador = AdaptadorTareas(root.context, tasks)
+        gridView.adapter = adaptador
 
         return root
     }
@@ -90,7 +90,15 @@ class HomeFragment : Fragment() {
                   if (it.getBoolean("do") == true){
                       dias.add("Sunday")
                   }
-                  tasks!!.add(Task(it.getString("actividad")!!, dias, it.getString("tiempo")!!))
+
+                  var titulo = it.getString("actividad")
+                  var tiempo = it.getString("tiempo")
+
+                  var act = Task(titulo!!, dias, tiempo!!)
+
+                  tasks.add(act)
+
+
               }
 
            }

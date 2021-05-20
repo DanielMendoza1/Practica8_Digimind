@@ -33,10 +33,10 @@ class DashboardFragment : Fragment() {
                 ViewModelProvider(this).get(DashboardViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
 
+        val btn_time: Button = root.findViewById(R.id.btn_time)
+
         storage = FirebaseFirestore.getInstance()
         usuario = FirebaseAuth.getInstance()
-
-        val btn_time: Button = root.findViewById(R.id.btn_time)
 
         btn_time.setOnClickListener {
             val cal = Calendar.getInstance()
@@ -66,10 +66,27 @@ class DashboardFragment : Fragment() {
         btn_save.setOnClickListener {
             var title = et_titulo.text.toString()
             var time = btn_time.text.toString()
-
             var days = ArrayList<String>()
+
+
+            if(checkMonday.isChecked)
+                days.add("Monday")
+            if(checkTuesday.isChecked)
+                days.add("Tuesday")
+            if(checkWednesday.isChecked)
+                days.add("Wednesday")
+            if(checkThursday.isChecked)
+                days.add("Thursday")
+            if(checkFriday.isChecked)
+                days.add("Friday")
+            if(checkSaturday.isChecked)
+                days.add("Saturday")
+            if(checkSunday.isChecked)
+                days.add("Sunday")
+
             val actividad = hashMapOf(
                 "actividad" to et_titulo.text.toString(),
+                "email" to usuario.currentUser.email.toString(),
                 "do" to checkSunday.isChecked,
                 "lu" to checkMonday.isChecked,
                 "ma" to checkTuesday.isChecked,
@@ -77,7 +94,6 @@ class DashboardFragment : Fragment() {
                 "ju" to checkThursday.isChecked,
                 "vi" to checkFriday.isChecked,
                 "sa" to checkSaturday.isChecked,
-                "email" to usuario.currentUser.email,
                 "tiempo" to btn_time.text.toString()
             )
 
@@ -85,6 +101,8 @@ class DashboardFragment : Fragment() {
                 .add(actividad)
                 .addOnSuccessListener {
                     Toast.makeText(root.context, "Task Agregada", Toast.LENGTH_SHORT).show()
+                    var task = Task(title, days, time)
+                    HomeFragment.tasks.add(task)
                 }
                 .addOnFailureListener {
                     Toast.makeText(root.context, "Error al agregar la task", Toast.LENGTH_SHORT).show()
